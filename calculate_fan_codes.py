@@ -41,7 +41,8 @@ class CodeCalculator(object):
         floor = []
 
         # using len() to help protect against out of index errors
-        if len(floor) != self.fans:
+        while len(floor) != self.fans:
+            print(f"this is the value of self.fans: {self.fans}")
             try:
                 floor[-1]
             except IndexError:

@@ -21,16 +21,29 @@ class CodeCalculatorTest(unittest.TestCase):
     def test_consecutive_codes_are_different(self):
         calc = CodeCalculator(fans=2, floors=1)
         code_array = calc.calculate_floor()
-        print(code_array)
 
         code1 = code_array[0]
         code2 = code_array[1]
 
         self.assertNotEqual(code1, code2)
 
-    def test_calculate_floor(self):
+    def test_calculate_floor_3_fans(self):
         """should return an array of arrays"""
-        pass
+
+        calc = CodeCalculator(fans=6, floors=1)
+        code_array = calc.calculate_floor()
+        print(code_array)
+
+        self.assertIsInstance(code_array[0], list)
+        self.assertIsInstance(code_array[1], list)
+
+    def test_correct_number_of_codes_returned(self):
+        """should return an array of 6 fan codes"""
+
+        calc = CodeCalculator(fans=6, floors=1)
+        code_array = calc.calculate_floor()
+
+        self.assertEqual(len(code_array), 6)
 
     def test_calculate_building(self):
         """should return a dictionary of nested arrays"""
