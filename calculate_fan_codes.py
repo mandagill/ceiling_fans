@@ -26,13 +26,22 @@ class CodeCalculator(object):
         self.floors = floors
 
     def switch_bit(self, bit):
-        """helper method to make it easier to 
-        change the value for any given fan 
+        """helper method to make it easier to
+        change the value for any given fan
         code in an array"""
         if bit == 0:
             return 1
         else:
             return 0
+
+    def remove_floor_level_collisions(self, building_codes):
+        """helper method to ensure two codes
+        will not collide. Takes dictionary of codes as an array
+        and returns updated dictionary"""
+        # todo figure out how best to encapsulate
+        # this functionality so the caller doesn't need to
+        # care about order of codes
+        pass
 
     def calculate_floor(self):
         """Returns an ordered list of
@@ -40,8 +49,7 @@ class CodeCalculator(object):
 
         floor = []
 
-        # using len() to help protect against out of index errors
-        while len(floor) != self.fans:
+        while len(floor) < self.fans:
             print(f"this is the value of self.fans: {self.fans}")
             try:
                 floor[-1]
@@ -54,14 +62,17 @@ class CodeCalculator(object):
             # algorithm is pretty rudimentary now,
             # it only checks the last bit in the fan code
             next_code[-1] = self.switch_bit(last_code[-1])
+
             floor.append(next_code)
 
-    # add some kind of increment counter
         return floor
 
     def calculate_building(self):
         """returns a dictionary of codes. Each
         dict entry corresponds with a floor"""
-        # todo add validation that the fan above
-        # and below won't collide
-        pass
+
+        building_codes = dict((f"fl{key}", self.calculate_floor())
+                              for key in range(1, self.floors))
+
+        self.remove_floor_level_collisions(building_codes=building_codes)
+        return building_codes

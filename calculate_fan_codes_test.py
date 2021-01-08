@@ -47,7 +47,21 @@ class CodeCalculatorTest(unittest.TestCase):
 
     def test_calculate_building(self):
         """should return a dictionary of nested arrays"""
-        pass
+
+        calc = CodeCalculator(fans=6, floors=2)
+        code_dictionary = calc.calculate_building()
+
+        self.assertIsInstance(code_dictionary, dict)
+
+    def test_there_are_no_vertical_collisions(self):
+        calc = CodeCalculator(fans=6, floors=3)
+        code_dictionary = calc.calculate_building()
+
+        index = 0
+        for each_floor1_code in code_dictionary['fl1']:
+            self.assertNotEqual(
+                each_floor1_code[index], code_dictionary['fl2'][index])
+            index += 1
 
 
 if __name__ == '__main__':
