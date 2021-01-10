@@ -32,7 +32,6 @@ class CodeCalculatorTest(unittest.TestCase):
 
         calc = CodeCalculator(fans=6, floors=1)
         code_array = calc.calculate_floor()
-        print(code_array)
 
         self.assertIsInstance(code_array[0], list)
         self.assertIsInstance(code_array[1], list)
@@ -57,11 +56,21 @@ class CodeCalculatorTest(unittest.TestCase):
         calc = CodeCalculator(fans=6, floors=3)
         code_dictionary = calc.calculate_building()
 
-        index = 0
-        for each_floor1_code in code_dictionary['fl1']:
-            self.assertNotEqual(
-                each_floor1_code[index], code_dictionary['fl2'][index])
-            index += 1
+        # not wild about hardcoding my indices, ideally
+        # I would create a bldg and fl object
+        # that is iterable
+        higher_floor_index = 1
+        lower_floor_index = 2
+
+        while lower_floor_index < len(code_dictionary):
+            fan_index = 0
+            for fan_code in code_dictionary[f"fl{higher_floor_index}"]:
+                print(f"this is the fan index: {fan_index}")
+                self.assertNotEqual(
+                    fan_code, code_dictionary[f"fl{lower_floor_index}"][fan_index])
+                fan_index += 1
+            higher_floor_index += 1
+            lower_floor_index += 1
 
 
 if __name__ == '__main__':

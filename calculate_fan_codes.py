@@ -7,8 +7,8 @@
 #     [1, 0, 0, 1],
 # ],
 # fl2: [
-# [1, 1, 0, 0],
-# [1, 0, 0, 0]
+#     [1, 1, 0, 0],
+#     [1, 0, 0, 0]
 # ]
 # }
 
@@ -17,7 +17,11 @@ class CodeCalculator(object):
     """given an input of 1.)
      number of fans and 2.) number of floors
      it should return a list of consecutive codes
-     mapped to individual fans that will not collide."""
+     mapped to individual fans that will not collide.
+
+     todo: when refactoring, create floor and building 
+     as iterable objects. This approach is a little more on
+     the functional programming side."""
 
     SEED = [0, 0, 0, 0]
 
@@ -50,7 +54,6 @@ class CodeCalculator(object):
         floor = []
 
         while len(floor) < self.fans:
-            print(f"this is the value of self.fans: {self.fans}")
             try:
                 floor[-1]
             except IndexError:
@@ -72,7 +75,7 @@ class CodeCalculator(object):
         dict entry corresponds with a floor"""
 
         building_codes = dict((f"fl{key}", self.calculate_floor())
-                              for key in range(1, self.floors))
+                              for key in range(1, self.floors + 1))
 
         self.remove_floor_level_collisions(building_codes=building_codes)
         return building_codes
